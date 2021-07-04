@@ -1,0 +1,10 @@
+h.pane.stowtabs	"Stow Pane Tabs"	"Stow pane tabs"	 Alt+F11
+h.pane.ipr.render	Render	Render	 F9
+h.pane.ipr.killrender	"Kill Render"	"Kill Render"	 F10
+h.pane.gview.nextcamera	"Next Camera"	"Look through the next camera in the list"	 ]
+h.pane.gview.prevcamera	"Previous Camera"	"Look through the previous camera in the list"	 [
+h.pane.gview.snapshot_options	"Snapshot Memory Options"	"Snapshot memory options"	 Alt+F9
+h.stow_playbar	"Toggle Playbar Stow"	"Toggle playbar stow"	 Alt+F10
+h.update_mode_always	"Update Mode 'Auto Update'"	"Update mode 'Auto Update'"	 F12
+h.update_mode_never	"Update Mode 'Manual'"	"Update mode 'Manual'"	 F11
+h.pane.stow	Stow	"Stow pane"	 Alt+F12

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mainMenu>
+    <menuBar>
+        <subMenu id="tth_menu">
+
+            <label>TTH</label>
+            <insertBefore>help_menu</insertBefore>
+
+            <scriptItem>
+                <label>Camera From ABC (Auto)</label>
+                <scriptPath>//data2/wangpan/install/houdini/scripts/CreateCameraFromABCAuto.py</scriptPath>
+            </scriptItem>
+
+            <scriptItem>
+                <label>Camera From ABC (Select)</label>
+                <scriptPath>//data2/wangpan/install/houdini/scripts/CreateCameraFromABCSelect.py</scriptPath>
+            </scriptItem>
+
+            <separatorItem/>
+
+        </subMenu>
+    </menuBar>
+</mainMenu>
