@@ -1,0 +1,7 @@
+nuke.pluginAddPath('TThunderMenu')
+nuke.pluginAddPath('TThunderToolbar')
+nuke.pluginAddPath('Deadline')
+nuke.pluginAddPath('BatchKnob_v1.0')
+nuke.pluginAddPath('KnobDefault_v1.0')
+nuke.pluginAddPath('Cryptomatte')
+#nuke.pluginAddPath('ZCB')
