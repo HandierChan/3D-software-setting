@@ -18,32 +18,33 @@ else: hipSC = ''
 
 # Dialog for select file
 abcFullFile = hou.ui.selectFile(pattern='*'+hipSC+'*'+'.abc', multiple_select=False)
+abcFullFileAbs  = hou.expandString(abcFullFile)
 
 # Set FrameRange
-timeRange = abc.alembicTimeRange( hou.expandString(abcFullFile))
+timeRange = abc.alembicTimeRange(abcFullFileAbs)
 if timeRange is not None:
     hou.playbar.setFrameRange(hou.playbar.frameRange()[0], hou.timeToFrame(timeRange[1])-1)
     #hou.playbar.setPlaybackRange(hou.playbar.playbackRange()[0], hou.timeToFrame(timeRange[1])-1)
 
-# Filter Camera, (Need Optimization!!!)
-abcMenuTuples = abc.alembicGetObjectPathListForMenu( hou.expandString(abcFullFile))
-if abcMenuTuples is None:
+# Filter Camera, !!! Need Rewrite
+abcMenuTuples = abc.alembicGetObjectPathListForMenu(abcFullFileAbs)
+if abcMenuTuples is None: # report error when exiting the select abc dialog, so quit()
     quit()
 cameraList=[]
 for i in set(abcMenuTuples):
-    cameraABCObject = abc.alembicGetSceneHierarchy(abcFullFile, i)
+    cameraABCObject = abc.alembicGetSceneHierarchy(abcFullFileAbs,i)
     if cameraABCObject[1] == 'camera':
         cameraList.append(i)
-cameraExclude = ['/front/frontShape','/top/topShape','/side/sideShape','/persp/perspShape']
-cameraList=[i for i in cameraList if i not in cameraExclude]
-cameraList=[i for i in cameraList if ':' not in i]
+cameraExclude = ['/front/frontshape','/top/topshape','/side/sideshape','/persp/perspshape','/left/leftshape','/right/rightshape','/back/backshape','/bottom/bottomshape']
+cameraList=[i for i in cameraList if i.lower() not in cameraExclude]
+cameraList=[i for i in cameraList if ':' not in i] # 冒号是 maya reference，过滤掉 reference 相机
 if len(cameraList)==1:
     cameraName=cameraList[0]
 else:
     userSelect = hou.ui.selectFromTree(cameraList, exclusive=1, title='Select Camera')
     try:cameraName=userSelect[0]
     except:quit()
-cameraNameCorrect=cameraName.replace(':','_') # 纠正maya-reference名字，上面cameraList已过滤reference
+cameraNameCorrect=cameraName.replace(':','_') # 冒号是 maya reference，会报错，其实上面 cameraList 已过滤 reference
 
 ######################## Create a series of camera nodes(Start)
 obj = hou.node('/obj')

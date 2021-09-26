@@ -7,7 +7,7 @@ import _alembic_hom_extensions as abc
 
 # Search ABC Path. Example: //data2/E/QQH_TV_S01/media1_e01/Houdini_Project/abc
 if len(hou.getenv('JOB','')) is 0:
-    hou.ui.displayMessage('Error: $JOB is None',severity=hou.severityType.Error)
+    hou.ui.displayMessage('Error:\n$JOB is None',severity=hou.severityType.Error)
 else:
     jobPath = hou.getenv('JOB') #.split('/')
 abcPath = jobPath+'/abc'
@@ -26,34 +26,36 @@ abcLists = os.listdir(abcPath)
 abcLists = [i for i in abcLists if os.path.splitext(i)[1] == '.abc']
 abcLists = [i for i in abcLists if hipSC.lower() in i.lower()]
 if len(abcLists) == 0:
-    hou.ui.displayMessage('Error: $JOB/abc have not abc File for this scene.',title='Search Path',severity=hou.severityType.Error)
+    hou.ui.displayMessage('''Error:\nNo corresponding alembic file in "$JOB/abc"''',title='Search Path',severity=hou.severityType.Error)
+    quit()
 abcLists.sort()
 abcFile = abcLists[-1]
 abcFullFile = abcPath+'/'+abcFile
+abcFullFileAbs = hou.expandString(abcFullFile)
 
 # Set FrameRange
-timeRange = abc.alembicTimeRange(abcFullFile)
+timeRange = abc.alembicTimeRange(abcFullFileAbs)
 if timeRange is not None:
     hou.playbar.setFrameRange(hou.playbar.frameRange()[0], hou.timeToFrame(timeRange[1])-1)
     #hou.playbar.setPlaybackRange(hou.playbar.playbackRange()[0], hou.timeToFrame(timeRange[1])-1)
 
 # Filter Camera, (Need Optimization!!!)
-abcMenuTuples = abc.alembicGetObjectPathListForMenu( hou.expandString(abcFullFile))
+abcMenuTuples = abc.alembicGetObjectPathListForMenu(abcFullFileAbs)
 cameraList=[]
 for i in set(abcMenuTuples):
-    cameraABCObject = abc.alembicGetSceneHierarchy(abcFullFile, i)
+    cameraABCObject = abc.alembicGetSceneHierarchy(abcFullFileAbs, i)
     if cameraABCObject[1] == 'camera':
         cameraList.append(i)
-cameraExclude = ['/front/frontShape','/top/topShape','/side/sideShape','/persp/perspShape']
-cameraList=[i for i in cameraList if i not in cameraExclude]
-cameraList=[i for i in cameraList if ':' not in i]
+cameraExclude = ['/front/frontshape','/top/topshape','/side/sideshape','/persp/perspshape','/left/leftshape','/right/rightshape','/back/backshape','/bottom/bottomshape']
+cameraList=[i for i in cameraList if i.lower() not in cameraExclude]
+cameraList=[i for i in cameraList if ':' not in i] # 冒号是 maya reference，过滤掉 reference 相机
 if len(cameraList)==1:
     cameraName=cameraList[0]
 else:
     userSelect = hou.ui.selectFromTree(cameraList, exclusive=1, title='Select Camera')
     try:cameraName=userSelect[0]
     except:quit()
-cameraNameCorrect=cameraName.replace(':','_') # 纠正maya-reference名字，上面cameraList已过滤reference
+cameraNameCorrect=cameraName.replace(':','_') # 冒号是 maya reference，会报错，其实上面 cameraList 已过滤 reference
 
 ######################## Create a series of camera nodes(Start)
 obj = hou.node('/obj')
