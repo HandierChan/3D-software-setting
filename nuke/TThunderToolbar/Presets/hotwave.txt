@@ -1,0 +1,110 @@
+set cut_paste_input [stack 0]
+version 11.0 v1
+push $cut_paste_input
+Group {
+ name hotWave1
+ tile_color 0xff0008ff
+ gl_color 0x844fffff
+ selected true
+ xpos 2488
+ ypos 1775
+ addUserKnob {20 User}
+ addUserKnob {41 uv_scale l "UV scale" T IDistort2.uv_scale}
+ addUserKnob {41 maskChannel l "mask channel" T IDistort2.maskChannel}
+ addUserKnob {41 size l x/ysize T Noise2.size}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -492
+  ypos -166
+  number 1
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos -920
+  ypos -362
+ }
+ Ramp {
+  p0 {254 412}
+  p1 {300 1134}
+  type smooth
+  name Ramp2
+  xpos -920
+  ypos -268
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant2
+  xpos -810
+  ypos -421
+ }
+ Noise {
+  size 110
+  zoffset {{curve x96 0 x300 6}}
+  lacunarity 1.37
+  gain 1
+  gamma 0.55
+  center {1024 778}
+  name Noise2
+  selected true
+  xpos -810
+  ypos -332
+ }
+ Blur {
+  size 29
+  name Blur2
+  xpos -810
+  ypos -306
+ }
+ Grade {
+  inputs 1+1
+  white 0.28
+  multiply 0.05
+  name Grade2
+  xpos -810
+  ypos -268
+ }
+ DirBlurWrapper {
+  BlurType linear
+  BlurCenter {982 60}
+  BlurLength 119
+  BlurAngle 0
+  target {1004 1206}
+  name DirBlurWrapper2
+  xpos -810
+  ypos -242
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -626
+  ypos -289
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 forward.u
+  from1 rgba.green
+  to1 forward.v
+  name Copy2
+  xpos -626
+  ypos -249
+ }
+ IDistort {
+  inputs 1+1
+  uv forward
+  uv_scale 48
+  name IDistort2
+  xpos -622
+  ypos -161
+ }
+ Output {
+  name Output1
+  xpos -626
+  ypos -50
+ }
+end_group

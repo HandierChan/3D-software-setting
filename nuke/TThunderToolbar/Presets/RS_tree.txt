@@ -1,0 +1,338 @@
+set cut_paste_input [stack 0]
+version 11.0 v1
+Read {
+ inputs 0
+ origset true
+ name Read1
+ selected true
+ xpos 3222
+ ypos 2109
+}
+Dot {
+ name Dot2
+ selected true
+ xpos 3256
+ ypos 2227
+}
+Dot {
+ name Dot73
+ selected true
+ xpos 3256
+ ypos 2427
+}
+set N34a89180 [stack 0]
+Dot {
+ name Dot90
+ selected true
+ xpos 3559
+ ypos 2427
+}
+set N34a88e00 [stack 0]
+Dot {
+ name Dot91
+ selected true
+ xpos 3905
+ ypos 2427
+}
+set N34a88a80 [stack 0]
+Dot {
+ name Dot92
+ selected true
+ xpos 4299
+ ypos 2427
+}
+set N34a88700 [stack 0]
+Dot {
+ name Dot93
+ selected true
+ xpos 4520
+ ypos 2427
+}
+set N34a88380 [stack 0]
+Dot {
+ name Dot94
+ selected true
+ xpos 4793
+ ypos 2427
+}
+set N34a88000 [stack 0]
+Dot {
+ name Dot87
+ selected true
+ xpos 5062
+ ypos 2427
+}
+set N34a39c00 [stack 0]
+add_layer {TransTint TransTint.red TransTint.green TransTint.blue TransTint.alpha}
+Shuffle {
+ in TransTint
+ name TransTint
+ selected true
+ xpos 5028
+ ypos 2472
+}
+Dot {
+ name Dot89
+ selected true
+ xpos 5062
+ ypos 2808
+}
+push $N34a39c00
+Dot {
+ name Dot86
+ selected true
+ xpos 5271
+ ypos 2427
+}
+set N34a39180 [stack 0]
+add_layer {TransGIRaw TransGIRaw.red TransGIRaw.green TransGIRaw.blue TransGIRaw.alpha}
+Shuffle {
+ in TransGIRaw
+ name TransGIRaw
+ selected true
+ xpos 5237
+ ypos 2472
+}
+Dot {
+ name Dot88
+ selected true
+ xpos 5271
+ ypos 2692
+}
+push $N34a39180
+Dot {
+ name Dot85
+ selected true
+ xpos 5473
+ ypos 2427
+}
+add_layer {TransLightingRaw TransLightingRaw.red TransLightingRaw.green TransLightingRaw.blue TransLightingRaw.alpha}
+Shuffle {
+ in TransLightingRaw
+ name TransLigthingRaw
+ selected true
+ xpos 5439
+ ypos 2472
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge50
+ selected true
+ xpos 5439
+ ypos 2688
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge51
+ selected true
+ xpos 5439
+ ypos 2804
+}
+push $N34a88000
+add_layer {VolumeLighting VolumeLighting.red VolumeLighting.green VolumeLighting.blue VolumeLighting.alpha}
+Shuffle {
+ in VolumeLighting
+ name VolumeLighting
+ selected true
+ xpos 4759
+ ypos 2472
+}
+push $N34a88380
+add_layer {Emission Emission.red Emission.green Emission.blue Emission.alpha}
+Shuffle {
+ in Emission
+ name Emission
+ selected true
+ xpos 4486
+ ypos 2472
+}
+push $N34a88700
+add_layer {SpecularLighting SpecularLighting.red SpecularLighting.green SpecularLighting.blue SpecularLighting.alpha}
+Shuffle {
+ in SpecularLighting
+ name SpecularLingthing
+ selected true
+ xpos 4265
+ ypos 2472
+}
+push $N34a88a80
+add_layer {Refractions Refractions.red Refractions.green Refractions.blue Refractions.alpha}
+Shuffle {
+ in Refractions
+ in2 alpha
+ alpha red2
+ name Refractions
+ selected true
+ xpos 3871
+ ypos 2472
+}
+push $N34a88e00
+add_layer {Reflections Reflections.red Reflections.green Reflections.blue Reflections.alpha}
+Shuffle {
+ in Reflections
+ name Reflections
+ selected true
+ xpos 3525
+ ypos 2472
+}
+push $N34a89180
+add_layer {DiffuseFilter DiffuseFilter.red DiffuseFilter.green DiffuseFilter.blue DiffuseFilter.alpha}
+Shuffle {
+ in DiffuseFilter
+ name DiffuseFilter
+ selected true
+ xpos 3222
+ ypos 2472
+}
+push $N34a89180
+Dot {
+ name Dot81
+ selected true
+ xpos 2927
+ ypos 2428
+}
+set N45a44380 [stack 0]
+add_layer {SSSRaw SSSRaw.red SSSRaw.green SSSRaw.blue SSSRaw.alpha}
+Shuffle {
+ in SSSRaw
+ name SSSRaw
+ selected true
+ xpos 2893
+ ypos 2473
+}
+push $N45a44380
+Dot {
+ name Dot79
+ selected true
+ xpos 2634
+ ypos 2427
+}
+set N45a75c00 [stack 0]
+add_layer {GIRaw GIRaw.red GIRaw.green GIRaw.blue GIRaw.alpha}
+Shuffle {
+ in GIRaw
+ name GIRaw
+ selected true
+ xpos 2600
+ ypos 2472
+}
+push $N45a75c00
+Dot {
+ name Dot78
+ selected true
+ xpos 2343
+ ypos 2427
+}
+add_layer {DiffuseLightingRaw DiffuseLightingRaw.red DiffuseLightingRaw.green DiffuseLightingRaw.blue DiffuseLightingRaw.alpha}
+Shuffle {
+ in DiffuseLightingRaw
+ in2 alpha
+ alpha red2
+ name DiffuseLigtingRaw
+ selected true
+ xpos 2309
+ ypos 2472
+}
+Dot {
+ name Dot83
+ selected true
+ xpos 2343
+ ypos 3122
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge41
+ selected true
+ xpos 2600
+ ypos 3118
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge48
+ selected true
+ xpos 2893
+ ypos 3118
+}
+Dot {
+ name Dot1
+ selected true
+ xpos 2927
+ ypos 3288
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge49
+ selected true
+ xpos 3222
+ ypos 3284
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge53
+ selected true
+ xpos 3525
+ ypos 3284
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge54
+ selected true
+ xpos 3871
+ ypos 3284
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge55
+ selected true
+ xpos 4265
+ ypos 3279
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge56
+ selected true
+ xpos 4486
+ ypos 3279
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge57
+ selected true
+ xpos 4759
+ ypos 3279
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge52
+ selected true
+ xpos 5439
+ ypos 3284
+}
+Dot {
+ name Dot3
+ selected true
+ xpos 5473
+ ypos 3769
+}
