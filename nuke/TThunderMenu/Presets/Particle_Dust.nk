@@ -1,0 +1,471 @@
+set cut_paste_input [stack 0]
+version 11.3 v4
+Axis2 {
+ inputs 0
+ translate {-0.2399999946 1.169999957 -0.200000003}
+ name Axis2
+ selected true
+ xpos 806
+ ypos 322
+}
+Axis2 {
+ inputs 0
+ translate {0 0.09999999404 1.399999976}
+ name Axis3
+ selected true
+ xpos 705
+ ypos 315
+}
+Camera2 {
+ inputs 2
+ translate {0 1.399999976 13.97999954}
+ name Camera1
+ selected true
+ xpos 751
+ ypos 403
+}
+Constant {
+ inputs 0
+ channels rgb
+ color 1
+ format "256 256 0 0 256 256 1 square_256"
+ name Constant3
+ selected true
+ xpos 908
+ ypos -356
+}
+set Ne41c6000 [stack 0]
+Noise {
+ output alpha
+ size 120
+ zoffset 0.92
+ lacunarity 2.69
+ gain 0.154
+ gamma 1
+ center {960 540}
+ name Noise1
+ selected true
+ xpos 804
+ ypos -272
+}
+Roto {
+ output alpha
+ premultiply alpha
+ curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097152}
+    {t x43000000 x43000000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Ellipse1 512 bezier
+     {{cc
+       {f 8192}
+       {px x41100000
+        {xc28bba60 0}
+        {x42fd0000 x40400000}
+        {x428bba60 0}
+        {0 xc28c47c3}
+        {x437d0000 x43020000}
+        {0 x428c47c4}
+        {x428bba60 0}
+        {x42fd0000 x43808000}
+        {xc28bba60 0}
+        {0 x428c47c4}
+        {0 x43020000}
+        {0 xc28c47c3}}}     idem}
+     {t
+   {{x41100000 x42fd0000}}
+   {{x41100000 x43020000}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}  x3f8ccccd x3f8ccccd
+   {{x41100000 1}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 1}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 1}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 1}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 0}}
+   {{x41100000 1}}}
+     {a fx xc2860000 fy xc2860000 osw x41200000 osf 0 str 1 spx x43000000 spy x43000000 sb 1 ltn x41100000 ltm x41100000 tt x40e00000 bm x40000000}}}}}}
+ toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 tt 7 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+ toolbar_brush_hardness 0.200000003
+ toolbar_source_transform_scale {1 1}
+ toolbar_source_transform_center {128 128}
+ colorOverlay {0 0 0 0}
+ blending_mode multiply
+ lifetime_type "all frames"
+ lifetime_start 9
+ lifetime_end 9
+ motionblur_shutter_offset_type centred
+ feather -67
+ source_black_outside true
+ name Roto3
+ selected true
+ xpos 804
+ ypos -224
+}
+Premult {
+ name Premult1
+ selected true
+ xpos 804
+ ypos -181
+}
+push $Ne41c6000
+Noise {
+ output alpha
+ size 120
+ zoffset 3
+ lacunarity 1.535
+ gain 0.524
+ gamma 1
+ center {960 540}
+ name Noise3
+ selected true
+ xpos 908
+ ypos -261
+}
+Roto {
+ output alpha
+ premultiply alpha
+ curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x43000000 x43000000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Ellipse1 512 bezier
+     {{cc
+       {f 8192}
+       {px x41100000
+        {xc28bba60 0}
+        {x42fd0000 x40400000}
+        {x428bba60 0}
+        {0 xc28c47c3}
+        {x437d0000 x43020000}
+        {0 x428c47c4}
+        {x428bba60 0}
+        {x42fd0000 x43808000}
+        {xc28bba60 0}
+        {0 x428c47c4}
+        {0 x43020000}
+        {0 xc28c47c3}}}     idem}
+     {t
+      {{x41100000 x42fd0000}}
+      {{x41100000 x43020000}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}     x3f8ccccd x3f8ccccd
+      {{x41100000 1}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 1}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 1}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 1}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 0}}
+      {{x41100000 1}}}
+     {a fx xc2860000 fy xc2860000 osw x41200000 osf 0 str 1 spx x43000000 spy x43000000 sb 1 ltn x41100000 ltm x41100000 tt x40e00000 bm x40000000}}}}}}
+ toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 tt 7 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+ toolbar_brush_hardness 0.200000003
+ toolbar_source_transform_scale {1 1}
+ toolbar_source_transform_center {128 128}
+ colorOverlay {0 0 0 0}
+ blending_mode multiply
+ lifetime_type "all frames"
+ lifetime_start 9
+ lifetime_end 9
+ motionblur_shutter_offset_type centred
+ feather -67
+ source_black_outside true
+ name Roto4
+ selected true
+ xpos 908
+ ypos -218
+}
+Premult {
+ name Premult2
+ selected true
+ xpos 908
+ ypos -180
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ name Merge1
+ selected true
+ xpos 853
+ ypos -126
+}
+push $Ne41c6000
+Noise {
+ output alpha
+ size 80
+ zoffset 200.32
+ gamma 0.7
+ center {960 540}
+ name Noise4
+ selected true
+ xpos 1014
+ ypos -259
+}
+Roto {
+ output alpha
+ premultiply alpha
+ curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097152}
+    {t x43000000 x43000000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Ellipse1 512 bezier
+     {{cc
+       {f 8192}
+       {px x41100000
+        {xc28bba60 0}
+        {x42fd0000 x40400000}
+        {x428bba60 0}
+        {0 xc28c47c3}
+        {x437d0000 x43020000}
+        {0 x428c47c4}
+        {x428bba60 0}
+        {x42fd0000 x43808000}
+        {xc28bba60 0}
+        {0 x428c47c4}
+        {0 x43020000}
+        {0 xc28c47c3}}}     idem}
+     {tx x41100000 x42fd0000 x43020000}
+     {a fx xc2860000 fy xc2860000 osw x41200000 osf 0 str 1 spx x43000000 spy x43000000 sb 1 ltn x41100000 ltm x41100000 tt x40e00000 bm x40000000}}}}}}
+ toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 tt 7 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+ toolbar_brush_hardness 0.200000003
+ toolbar_source_transform_scale {1 1}
+ toolbar_source_transform_center {128 128}
+ colorOverlay {0 0 0 0}
+ blending_mode multiply
+ lifetime_type "all frames"
+ lifetime_start 9
+ lifetime_end 9
+ motionblur_shutter_offset_type centred
+ feather -67
+ source_black_outside true
+ name Roto5
+ selected true
+ xpos 1014
+ ypos -212
+}
+Premult {
+ name Premult3
+ selected true
+ xpos 1014
+ ypos -174
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ name Merge4
+ selected true
+ xpos 911
+ ypos -71
+}
+BlendMat {
+ surfaceblend modulate
+ name BlendMat3
+ selected true
+ xpos 911
+ ypos -10
+}
+push $cut_paste_input
+Card2 {
+ image_aspect false
+ rows 15
+ columns 15
+ rotate {-90 0 0}
+ scaling {5 1 1}
+ control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+ name Card2
+ selected true
+ xpos 787
+ ypos 62
+}
+push 0
+ParticleEmitter {
+ inputs 3
+ emit_from faces
+ lifetime_variation 0.036
+ velocity 0.182
+ size 1
+ name ParticleEmitter4
+ selected true
+ xpos 911
+ ypos 62
+}
+ParticleCurve {
+ curves {r {}
+   g {}
+   b {}
+   a {curve l 1.000771523 0.3331240416}
+   size {curve x0.753633976 0.9866264462 x0.9959666729 0.6696517467}
+   mass {}}
+ affect_rgb false
+ affect_size true
+ channels {a}
+ name ParticleCurve3
+ selected true
+ xpos 911
+ ypos 129
+}
+ParticleTurbulence {
+ strength {-1 -1 -1}
+ scale {0.2 0 0.2}
+ probability 0.89
+ max_age 0.14
+ name ParticleTurbulence2
+ selected true
+ xpos 911
+ ypos 196
+}
+ParticleGravity {
+ to {0 -0.02 0}
+ name ParticleGravity4
+ selected true
+ xpos 911
+ ypos 265
+}
+ParticleDrag {
+ drag 0.534
+ name ParticleDrag4
+ selected true
+ xpos 911
+ ypos 340
+}
+push 0
+ScanlineRender {
+ inputs 3
+ conservative_shader_sampling false
+ motion_vectors_type distance
+ name ScanlineRender1
+ selected true
+ xpos 911
+ ypos 423
+}
+Grade {
+ multiply {0.853062 0.447195 0.182313 1}
+ multiply_panelDropped true
+ black_clamp false
+ name Grade5
+ label "\[value white]"
+ selected true
+ xpos 911
+ ypos 491
+}
+Blur {
+ size 7.2
+ name Blur5
+ label "\[value size]"
+ selected true
+ xpos 911
+ ypos 571
+}

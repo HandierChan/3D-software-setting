@@ -1,0 +1,114 @@
+set cut_paste_input [stack 0]
+version 11.3 v4
+push $cut_paste_input
+add_layer {fog fog.red fog.green fog.blue fog.alpha}
+Shuffle {
+ in fog
+ alpha white
+ name fog
+ selected true
+ xpos -257
+ ypos 434
+}
+set Ne454f800 [stack 0]
+add_layer {specular specular.red specular.green specular.blue specular.alpha}
+Shuffle {
+ in specular
+ name specular
+ selected true
+ xpos -135
+ ypos 434
+}
+set Ne454f400 [stack 0]
+add_layer {fogEmission fogEmission.red fogEmission.green fogEmission.blue fogEmission.alpha}
+Shuffle {
+ in fogEmission
+ alpha black
+ name fogEmission
+ selected true
+ xpos -3
+ ypos 434
+}
+Copy {
+ from0 rgba.green
+ to0 rgba.alpha
+ name Copy2
+ selected true
+ xpos -3
+ ypos 508
+}
+push $Ne454f400
+push $Ne454f800
+push 0
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge38
+ selected true
+ xpos -257
+ ypos 582
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge36
+ selected true
+ xpos -135
+ ypos 582
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge40
+ selected true
+ xpos -3
+ ypos 582
+}
+Denoise2 {
+ amount 1.88
+ smoothness 6
+ analysisRegion {846 174 1442 550}
+ processVeryLow true
+ needsAnalyzing false
+ profileCurve {profile {curve 0 x0.125 0 0 0 0 0 0 0 0}}
+ serializeKnob "2.606630325e-01 4.840647876e-01 5.371946096e-01
+5.702416878e-03 3.533817595e-03 2.912453609e-03
+5.702416878e-03 3.533817595e-03 2.912453609e-03
+5.606269464e-03 3.528533503e-03 2.992833033e-03
+0.000000000e+00 0.000000000e+00 0.000000000e+00
+2.049975563e-03 1.339491806e-03 1.071062521e-03
+2.049975563e-03 1.339491806e-03 1.071062521e-03
+1.309555606e-03 8.760178462e-04 7.189157768e-04
+0.000000000e+00 0.000000000e+00 0.000000000e+00
+8.826922276e-04 6.659018691e-04 5.212423857e-04
+8.826922276e-04 6.659018691e-04 5.212423857e-04
+5.052280612e-04 4.161676916e-04 3.336611262e-04
+0.000000000e+00 0.000000000e+00 0.000000000e+00
+1.453884906e-04 2.261614427e-04 2.206537174e-04
+1.453884906e-04 2.261614427e-04 2.206537174e-04
+1.292086818e-04 1.978663349e-04 1.809914538e-04
+0.000000000e+00 0.000000000e+00 0.000000000e+00 0.000000000e+00 0.000000000e+00 0.000000000e+00 0.000000000e+00 0.000000000e+00 0.000000000e+00 
+5519229826410236921"
+ name Denoise2
+ selected true
+ xpos 123
+ ypos 576
+}
+Glow2 {
+ brightness 0.2
+ name Glow1
+ selected true
+ xpos 227
+ ypos 582
+}
+push 0
+Merge2 {
+ inputs 2
+ name Merge5
+ label "\[value mix]"
+ selected true
+ xpos 337
+ ypos 576
+}

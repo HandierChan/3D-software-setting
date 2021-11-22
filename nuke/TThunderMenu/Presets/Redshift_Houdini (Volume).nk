@@ -1,0 +1,293 @@
+#! C:/Program Files/Nuke11.3v4/nuke-11.3.4.dll -nx
+version 11.3 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-8" y="-8" w="1920" h="1057" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="0"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1087" stretch="1"/>
+            <splitter orientation="2">
+                <split size="588"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="414"/>
+                <dock id="" hideTitles="1" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="825"/>
+            <dock id="" hideTitles="1" activePageId="DAG.1" focus="true">
+                <page id="DAG.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name //data2/wangpan/install/nuke/.nuke/TThunder/Presets/Redshift(Volume).nk
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+add_layer {diffuseFilter diffuseFilter.red diffuseFilter.green diffuseFilter.blue diffuseFilter.alpha}
+Shuffle {
+ inputs 0
+ in diffuseFilter
+ name diffuseFilter
+ xpos -480
+ ypos -106
+}
+set Nfa5c8800 [stack 0]
+add_layer {reflection reflection.red reflection.green reflection.blue reflection.alpha}
+Shuffle {
+ in reflection
+ name reflection
+ xpos -353
+ ypos -106
+}
+set Nfa5c8400 [stack 0]
+add_layer {refraction refraction.red refraction.green refraction.blue refraction.alpha}
+Shuffle {
+ in refraction
+ name refraction
+ xpos -229
+ ypos -106
+}
+set Nfa5c9400 [stack 0]
+add_layer {specular specular.red specular.green specular.blue specular.alpha}
+Shuffle {
+ in specular
+ name specular
+ xpos -107
+ ypos -106
+}
+set Nfa5c9000 [stack 0]
+add_layer {emission emission.red emission.green emission.blue emission.alpha}
+Shuffle {
+ in emission
+ name emission
+ xpos 19
+ ypos -106
+}
+set Nfa5c8c00 [stack 0]
+add_layer {transFilter transFilter.red transFilter.green transFilter.blue transFilter.alpha}
+Shuffle {
+ in transFilter
+ name transFilter
+ xpos 146
+ ypos -106
+}
+set Nfa5c9c00 [stack 0]
+add_layer {transRAW transRAW.red transRAW.green transRAW.blue transRAW.alpha}
+Shuffle {
+ in transRAW
+ name transRAW
+ xpos 256
+ ypos -106
+}
+set Nfa5c9800 [stack 0]
+add_layer {transGI transGI.red transGI.green transGI.blue transGI.alpha}
+Shuffle {
+ in transGI
+ name transGI
+ xpos 366
+ ypos -106
+}
+set Nfa5f9000 [stack 0]
+add_layer {fog fog.red fog.green fog.blue fog.alpha}
+Shuffle {
+ in fog
+ alpha white
+ name fog
+ xpos 522
+ ypos -106
+}
+set Nfa5f8c00 [stack 0]
+add_layer {volume volume.red volume.green volume.blue volume.alpha}
+Shuffle {
+ in volume
+ alpha black
+ name volume
+ xpos 648
+ ypos -106
+}
+set Nfa5f8800 [stack 0]
+add_layer {fogEmission fogEmission.red fogEmission.green fogEmission.blue fogEmission.alpha}
+Shuffle {
+ in fogEmission
+ alpha black
+ name fogEmission
+ xpos 776
+ ypos -106
+}
+push $Nfa5f8800
+push $Nfa5f8c00
+push $Nfa5c9c00
+Dot {
+ name Dot4
+ xpos 180
+ ypos -6
+}
+push $Nfa5f9000
+push $Nfa5c9800
+Dot {
+ name Dot8
+ xpos 290
+ ypos -54
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge8
+ xpos 366
+ ypos -58
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge9
+ xpos 366
+ ypos -10
+}
+push $Nfa5c8c00
+push $Nfa5c9000
+push $Nfa5c9400
+push $Nfa5c8400
+push $Nfa5c8800
+push $Nfa5c8800
+add_layer {sssRAW sssRAW.red sssRAW.green sssRAW.blue sssRAW.alpha}
+Shuffle {
+ in sssRAW
+ name sssRAW
+ xpos -620
+ ypos -106
+}
+set Nfa625800 [stack 0]
+push $Nfa625800
+add_layer {gi gi.red gi.green gi.blue gi.alpha}
+Shuffle {
+ in gi
+ name GI
+ xpos -755
+ ypos -106
+}
+add_layer {giRAW giRAW.red giRAW.green giRAW.blue giRAW.alpha}
+Shuffle {
+ in giRAW
+ name giRAW
+ xpos -755
+ ypos -106
+}
+set Nfa625000 [stack 0]
+push $Nfa625000
+add_layer {diffuseRAW diffuseRAW.red diffuseRAW.green diffuseRAW.blue diffuseRAW.alpha}
+Shuffle {
+ in diffuseRAW
+ name diffuseRAW
+ xpos -882
+ ypos -106
+}
+Dot {
+ name Dot13
+ xpos -848
+ ypos 306
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge4
+ xpos -755
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge7
+ xpos -620
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge5
+ xpos -480
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge10
+ xpos -353
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge11
+ xpos -229
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge12
+ xpos -107
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge13
+ xpos 19
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge14
+ xpos 366
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge15
+ xpos 522
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge16
+ xpos 648
+ ypos 302
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge17
+ xpos 776
+ ypos 302
+}

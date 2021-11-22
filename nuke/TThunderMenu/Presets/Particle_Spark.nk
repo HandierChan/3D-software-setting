@@ -1,0 +1,561 @@
+#! C:/Program Files/Nuke11.3v4/nuke-11.3.4.dll -nx
+version 11.3 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-8" y="-8" w="1920" h="1057" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="0"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1087" stretch="1"/>
+            <splitter orientation="2">
+                <split size="588"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="414"/>
+                <dock id="" hideTitles="1" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="825"/>
+            <dock id="" hideTitles="1" activePageId="DAG.1" focus="true">
+                <page id="DAG.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name Z:/particle.nk
+ frame 21
+ first_frame 0
+ fps 25
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Constant {
+ inputs 0
+ channels rgb
+ color {0 0.053869 0.835 1}
+ color_panelDropped true
+ format "12 12 0 0 12 12 1 Particle 12x12"
+ name Constant3
+ xpos -311
+ ypos -447
+}
+Roto {
+ output alpha
+ premultiply rgb
+ curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x41800000 x41800000}
+    {a}
+    {curvegroup Ellipse1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {xc02d9238 x3c961a00}
+        {x40c21654 x3f9a5e10}
+        {x402d9228 xbc961a00}
+        {xbc985000 xc02ba870}
+        {x413026c2 x40c0eeb4}
+        {x3c985000 x402ba880}
+        {x402d9228 xbc961c00}
+        {x40c43dc0 x412eb3e2}
+        {xc02d9230 x3c961800}
+        {x3c985200 x402ba878}
+        {x3f981a48 x40c31054}
+        {xbc985000 xc02ba874}}}     idem}
+     {t
+   {{x41880000 x418ccccd}}
+   {{x41880000 x41680000}}  0
+   {{x41880000 0}}
+   {{x41880000 0}}  0 0 0
+   {{x41880000 0}}
+   {{x41880000 1}}
+   {{x41880000 1}}  1
+   {{x41880000 0}}}
+     {a spx x41800000 spy x41800000 sb 1 nv x40000000 ltn x41880000 ltm x41880000 tt x40c00000 view2 x40000000}}}}}}
+ toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 tt 6 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+ toolbar_brush_hardness 0.200000003
+ toolbar_source_transform_scale {1 1}
+ toolbar_source_transform_center {320 240}
+ colorOverlay {0 0 0 0}
+ lifetime_type "all frames"
+ lifetime_start 17
+ lifetime_end 17
+ motionblur_shutter_offset_type centred
+ source_translate_round false
+ source_black_outside true
+ name Roto3
+ xpos -311
+ ypos -349
+}
+BlendMat {
+ operation plus
+ surfaceblend modulate
+ name BlendMat3
+ xpos -311
+ ypos -285
+}
+Sphere {
+ inputs 0
+ radius 2.35
+ name Sphere1
+ xpos -186
+ ypos -182
+}
+push 0
+ParticleEmitter {
+ inputs 3
+ rate {{curve x4 1 0}}
+ lifetime 3
+ lifetime_variation 1
+ velocity 0
+ size 0
+ spread 1
+ frame_advance randomly
+ seed 113
+ name ParticleEmitter3
+ tile_color 0xffffff
+ xpos -315
+ ypos -182
+}
+ParticleSettings {
+ steps_per_frame 20
+ name ParticleSettings3
+ xpos -315
+ ypos -130
+}
+ParticleSpawn {
+ rate 3
+ rate_variation 0.158
+ lifetime 3
+ velocity 0.076
+ velocity_variation 0.934
+ size 0.023
+ mass 0.011
+ transfer_velocity 0
+ spread 1
+ conserve_mass false
+ color {1.125 0.483512 0.424276 1}
+ color_panelDropped true
+ frame_advance constant
+ name ParticleSpawn3
+ tile_color 0xefffff
+ xpos -315
+ ypos -78
+}
+ParticleSpawn {
+ emit_channels {c}
+ rate 50
+ lifetime 1
+ lifetime_variation 0.538
+ velocity 0
+ size 0.023
+ mass 0.011
+ transfer_velocity 0
+ conserve_mass false
+ color {0.482312 1.089905 1.125 1}
+ color_panelDropped true
+ frame_advance constant
+ channels {b}
+ name ParticleSpawn4
+ tile_color 0xefffff
+ xpos -315
+ ypos 1
+}
+ParticleDrag {
+ drag 0.872
+ name ParticleDrag3
+ xpos -315
+ ypos 71
+}
+ParticleCurve {
+ curves {r {}
+   g {}
+   b {}
+   a {curve l 0.5778645277 x0.4965408444 0.4835820794 x1 0.657381773}
+   size {curve x-0.002967476845 0.03983688354 x0.5019760132 0.04303491116 x1.003892183 0.03708350658}
+   mass {}}
+ affect_rgb false
+ affect_size true
+ channels {c}
+ name ParticleCurve3
+ xpos -315
+ ypos 135
+}
+ParticleGravity {
+ to {0 -0.01 0}
+ name ParticleGravity1
+ xpos -315
+ ypos 211
+}
+Constant {
+ inputs 0
+ channels rgb
+ color {0.017461 0.535984 0.706555 1}
+ color_panelDropped true
+ format "12 12 0 0 12 12 1 Particle 12x12"
+ name Constant2
+ xpos -473
+ ypos -445
+}
+Roto {
+ output alpha
+ premultiply rgb
+ curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x41800000 x41800000}
+    {a}
+    {curvegroup Ellipse1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {xc02d9238 x3c961a00}
+        {x40c21654 x3f9a5e10}
+        {x402d9228 xbc961a00}
+        {xbc985000 xc02ba870}
+        {x413026c2 x40c0eeb4}
+        {x3c985000 x402ba880}
+        {x402d9228 xbc961c00}
+        {x40c43dc0 x412eb3e2}
+        {xc02d9230 x3c961800}
+        {x3c985200 x402ba878}
+        {x3f981a48 x40c31054}
+        {xbc985000 xc02ba874}}}     idem}
+     {t
+   {{x41880000 x418ccccd}}
+   {{x41880000 x41680000}}  0
+   {{x41880000 0}}
+   {{x41880000 0}}  0 0 0
+   {{x41880000 0}}
+   {{x41880000 1}}
+   {{x41880000 1}}  1
+   {{x41880000 0}}}
+     {a spx x41800000 spy x41800000 sb 1 nv x40000000 ltn x41880000 ltm x41880000 tt x40c00000 view2 x40000000}}}}}}
+ toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 tt 6 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+ toolbar_brush_hardness 0.200000003
+ toolbar_source_transform_scale {1 1}
+ toolbar_source_transform_center {320 240}
+ colorOverlay {0 0 0 0}
+ lifetime_type "all frames"
+ lifetime_start 17
+ lifetime_end 17
+ motionblur_shutter_offset_type centred
+ source_translate_round false
+ source_black_outside true
+ name Roto2
+ xpos -473
+ ypos -347
+}
+BlendMat {
+ operation plus
+ surfaceblend modulate
+ name BlendMat2
+ xpos -473
+ ypos -283
+}
+push 0
+push 0
+ParticleEmitter {
+ inputs 3
+ rate {{curve x1 2 x5 0}}
+ lifetime 3
+ lifetime_variation 1
+ velocity_variation 0.104
+ size 0
+ spread 1
+ frame_advance randomly
+ seed 113
+ name ParticleEmitter2
+ tile_color 0xffffff
+ xpos -473
+ ypos -184
+}
+ParticleSettings {
+ steps_per_frame 20
+ name ParticleSettings2
+ xpos -473
+ ypos -132
+}
+ParticleSpawn {
+ rate 26
+ lifetime 5
+ size 0.023
+ mass 0.011
+ transfer_velocity 0.696
+ conserve_mass false
+ color {0.577341 0.424276 1.125 1}
+ frame_advance constant
+ name ParticleSpawn2
+ tile_color 0xefffff
+ xpos -473
+ ypos -80
+}
+ParticleDrag {
+ drag 0.526
+ name ParticleDrag2
+ xpos -473
+ ypos 64
+}
+ParticleCurve {
+ curves {r {}
+   g {}
+   b {}
+   a {curve l 0.5778645277 x0.4965408444 0.4835820794 x1 0.657381773}
+   size {curve 0.0731344223 x0.5019760132 0.06766176224 x1.003892183 0.0649253726}
+   mass {}}
+ affect_rgb false
+ affect_size true
+ channels {b}
+ name ParticleCurve2
+ xpos -473
+ ypos 128
+}
+ParticleGravity {
+ to {0 -0.01 0}
+ name ParticleGravity2
+ xpos -473
+ ypos 210
+}
+Constant {
+ inputs 0
+ channels rgb
+ color {0 0.76 0.835 1}
+ format "12 12 0 0 12 12 1 Particle 12x12"
+ name Constant1
+ xpos -632
+ ypos -443
+}
+Roto {
+ output alpha
+ premultiply rgb
+ curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x41800000 x41800000}
+    {a}
+    {curvegroup Ellipse1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {xc02d9238 x3c961a00}
+        {x40c21654 x3f9a5e10}
+        {x402d9228 xbc961a00}
+        {xbc985000 xc02ba870}
+        {x413026c2 x40c0eeb4}
+        {x3c985000 x402ba880}
+        {x402d9228 xbc961c00}
+        {x40c43dc0 x412eb3e2}
+        {xc02d9230 x3c961800}
+        {x3c985200 x402ba878}
+        {x3f981a48 x40c31054}
+        {xbc985000 xc02ba874}}}     idem}
+     {t
+   {{x41880000 x418ccccd}}
+   {{x41880000 x41680000}}  0
+   {{x41880000 0}}
+   {{x41880000 0}}  0 0 0
+   {{x41880000 0}}
+   {{x41880000 1}}
+   {{x41880000 1}}  1
+   {{x41880000 0}}}
+     {a spx x41800000 spy x41800000 sb 1 nv x40000000 ltn x41880000 ltm x41880000 tt x40c00000 view2 x40000000}}}}}}
+ toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 tt 6 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+ toolbar_brush_hardness 0.200000003
+ toolbar_source_transform_scale {1 1}
+ toolbar_source_transform_center {320 240}
+ colorOverlay {0 0 0 0}
+ lifetime_type "all frames"
+ lifetime_start 17
+ lifetime_end 17
+ motionblur_shutter_offset_type centred
+ source_translate_round false
+ source_black_outside true
+ name Roto1
+ xpos -632
+ ypos -345
+}
+BlendMat {
+ operation plus
+ surfaceblend modulate
+ name BlendMat1
+ xpos -632
+ ypos -281
+}
+push 0
+push 0
+ParticleEmitter {
+ inputs 3
+ rate {{curve x63 5 x67 0}}
+ lifetime 3
+ lifetime_variation 1
+ velocity_variation 0.104
+ size 0
+ spread 1
+ name ParticleEmitter1
+ tile_color 0xffffff
+ xpos -632
+ ypos -189
+}
+ParticleSettings {
+ steps_per_frame 20
+ name ParticleSettings1
+ xpos -632
+ ypos -127
+}
+ParticleSpawn {
+ rate 26
+ lifetime 5
+ size 0.023
+ mass 0.011
+ transfer_velocity 0.696
+ conserve_mass false
+ color {0.577341 0.424276 1.125 1}
+ frame_advance constant
+ name ParticleSpawn1
+ tile_color 0xefffff
+ xpos -632
+ ypos -75
+}
+ParticleDrag {
+ drag 0.526
+ name ParticleDrag1
+ xpos -632
+ ypos 64
+}
+ParticleCurve {
+ curves {r {}
+   g {}
+   b {}
+   a {curve l 0.5778645277 x0.4965408444 0.4835820794 x1 0.657381773}
+   size {curve x0.00835454464 0.03698277473 x1.00942421 0.04189674545}
+   mass {}}
+ affect_rgb false
+ affect_size true
+ channels {b}
+ name ParticleCurve1
+ xpos -632
+ ypos 128
+}
+ParticleGravity {
+ to {0 -0.01 0}
+ name ParticleGravity3
+ xpos -632
+ ypos 212
+}
+set Naeb42400 [stack 0]
+ParticleMerge {
+ inputs 3
+ name ParticleMerge1
+ xpos -473
+ ypos 297
+}
+Camera2 {
+ inputs 0
+ translate {0 0 27.35000038}
+ name Camera1
+ xpos -593
+ ypos 366
+}
+push $Naeb42400
+push 0
+ScanlineRender {
+ inputs 3
+ conservative_shader_sampling false
+ motion_vectors_type distance
+ name ScanlineRender1
+ xpos -473
+ ypos 386
+}
+EdgeBlur {
+ size 1.1
+ filter triangle
+ edge_mult 3.15
+ tint 0.54
+ brightness 0.246
+ name EdgeBlur1
+ xpos -473
+ ypos 469
+}
+Viewer {
+ frame 21
+ frame_range 0-100
+ fps 25
+ name Viewer1
+ xpos -473
+ ypos 559
+}

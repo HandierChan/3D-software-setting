@@ -1,0 +1,298 @@
+set cut_paste_input [stack 0]
+version 11.3 v4
+push $cut_paste_input
+Dot {
+ name Dot1
+ note_font_size 30
+ selected true
+ xpos -369
+ ypos 164
+}
+add_layer {DiffuseFilter DiffuseFilter.red DiffuseFilter.green DiffuseFilter.blue DiffuseFilter.alpha}
+Shuffle {
+ in DiffuseFilter
+ name DiffuseFilter
+ selected true
+ xpos -403
+ ypos 268
+}
+set N9b02ac00 [stack 0]
+add_layer {Reflections Reflections.red Reflections.green Reflections.blue Reflections.alpha}
+Shuffle {
+ in Reflections
+ name Reflections
+ selected true
+ xpos -259
+ ypos 268
+}
+set N9b02b000 [stack 0]
+add_layer {Refractions Refractions.red Refractions.green Refractions.blue Refractions.alpha}
+Shuffle {
+ in Refractions
+ in2 alpha
+ alpha red2
+ name Refractions
+ selected true
+ xpos -108
+ ypos 268
+}
+set N9b02b400 [stack 0]
+add_layer {SpecularLighting SpecularLighting.red SpecularLighting.green SpecularLighting.blue SpecularLighting.alpha}
+Shuffle {
+ in SpecularLighting
+ name SpecularLingthing
+ selected true
+ xpos 40
+ ypos 268
+}
+set N9b02b800 [stack 0]
+add_layer {Emission1 Emission1.red Emission1.green Emission1.blue}
+Shuffle {
+ in Emission1
+ name Emission
+ selected true
+ xpos 187
+ ypos 268
+}
+set N9b02bc00 [stack 0]
+add_layer {TransTint TransTint.red TransTint.green TransTint.blue TransTint.alpha}
+Shuffle {
+ in TransTint
+ name TransTint
+ selected true
+ xpos 323
+ ypos 268
+}
+set N9eba2400 [stack 0]
+add_layer {TransGIRaw TransGIRaw.red TransGIRaw.green TransGIRaw.blue TransGIRaw.alpha}
+Shuffle {
+ in TransGIRaw
+ name TransGIRaw
+ selected true
+ xpos 461
+ ypos 268
+}
+set N93f47800 [stack 0]
+add_layer {TransLightingRaw TransLightingRaw.red TransLightingRaw.green TransLightingRaw.blue TransLightingRaw.alpha}
+Shuffle {
+ in TransLightingRaw
+ name TransLigthingRaw
+ selected true
+ xpos 605
+ ypos 268
+}
+set N93f46c00 [stack 0]
+add_layer {VolumeFogTint VolumeFogTint.red VolumeFogTint.green VolumeFogTint.blue}
+Shuffle {
+ in VolumeFogTint
+ alpha white
+ name VolumeFogTint
+ selected true
+ xpos 748
+ ypos 268
+}
+set Nafeb1800 [stack 0]
+add_layer {VolumeLighting VolumeLighting.red VolumeLighting.green VolumeLighting.blue VolumeLighting.alpha}
+Shuffle {
+ in VolumeLighting
+ alpha black
+ name VolumeLighting
+ selected true
+ xpos 874
+ ypos 268
+}
+set Nafeb1400 [stack 0]
+add_layer {VolumeFogEmission VolumeFogEmission.red VolumeFogEmission.green VolumeFogEmission.blue}
+Shuffle {
+ in VolumeFogEmission
+ alpha black
+ name VolumeFogEmission
+ selected true
+ xpos 1002
+ ypos 268
+}
+push $Nafeb1400
+push $Nafeb1800
+push $N9eba2400
+Dot {
+ name Dot89
+ selected true
+ xpos 357
+ ypos 495
+}
+push $N93f47800
+Dot {
+ name Dot88
+ selected true
+ xpos 495
+ ypos 379
+}
+push $N93f46c00
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge50
+ selected true
+ xpos 605
+ ypos 375
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge51
+ selected true
+ xpos 605
+ ypos 491
+}
+push $N9b02bc00
+push $N9b02b800
+push $N9b02b400
+push $N9b02b000
+push $N9b02ac00
+push $N9b02ac00
+add_layer {SSSRaw SSSRaw.red SSSRaw.green SSSRaw.blue SSSRaw.alpha}
+Shuffle {
+ in SSSRaw
+ name SSSRaw
+ selected true
+ xpos -554
+ ypos 268
+}
+set N9b02a400 [stack 0]
+push $N9b02a400
+add_layer {GIRaw GIRaw.red GIRaw.green GIRaw.blue GIRaw.alpha}
+Shuffle {
+ in GIRaw
+ name GIRaw
+ selected true
+ xpos -694
+ ypos 268
+}
+set N80383c00 [stack 0]
+push $N80383c00
+add_layer {DiffuseLightingRaw DiffuseLightingRaw.red DiffuseLightingRaw.green DiffuseLightingRaw.blue DiffuseLightingRaw.alpha}
+Shuffle {
+ in DiffuseLightingRaw
+ in2 alpha
+ alpha red2
+ name DiffuseLigtingRaw
+ selected true
+ xpos -838
+ ypos 268
+}
+Dot {
+ name Dot83
+ selected true
+ xpos -804
+ ypos 686
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge41
+ selected true
+ xpos -694
+ ypos 682
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge48
+ selected true
+ xpos -554
+ ypos 682
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge49
+ selected true
+ xpos -403
+ ypos 683
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge53
+ selected true
+ xpos -259
+ ypos 683
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge54
+ selected true
+ xpos -108
+ ypos 683
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge55
+ selected true
+ xpos 40
+ ypos 683
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge56
+ selected true
+ xpos 187
+ ypos 683
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge52
+ selected true
+ xpos 605
+ ypos 683
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ name Merge3
+ selected true
+ xpos 748
+ ypos 683
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge6
+ selected true
+ xpos 874
+ ypos 683
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge18
+ selected true
+ xpos 1002
+ ypos 683
+}
+Viewer {
+ inputs 0
+ frame 36
+ frame_range 1-133
+ fps 25
+ full_frame_processing true
+ name Viewer1
+ selected true
+ xpos 802
+ ypos 125
+}

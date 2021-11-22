@@ -1,0 +1,166 @@
+set cut_paste_input [stack 0]
+version 11.3 v4
+Camera2 {
+ inputs 0
+ translate {0 0 15}
+ name Camera1
+ selected true
+ xpos 237
+ ypos 351
+}
+Constant {
+ inputs 0
+ channels rgb
+ color 1
+ format "256 256 0 0 256 256 1 square_256"
+ name Constant3
+ selected true
+ xpos 366
+ ypos -435
+}
+Noise {
+ output rgb
+ premult rgb
+ size 80
+ zoffset 200.32
+ gamma 0.7
+ center {960 540}
+ name Noise4
+ selected true
+ xpos 366
+ ypos -345
+}
+Grade {
+ blackpoint -0.26
+ whitepoint {1.28 1.33 1.39 1.37}
+ whitepoint_panelDropped true
+ white {1.01 0.99 0.97 0.99}
+ white_panelDropped true
+ multiply {1 0.753538 0.293519 1}
+ multiply_panelDropped true
+ gamma 0.985
+ black_clamp false
+ name Grade1
+ label "\[value white]"
+ selected true
+ xpos 366
+ ypos -291
+}
+BlendMat {
+ surfaceblend modulate
+ name BlendMat3
+ selected true
+ xpos 366
+ ypos -210
+}
+ReadGeo2 {
+ file //data4/E/QQH_TV_S01_new/QQH_TV_S01_E14/Houdini_Project/abc2maya/debris.obj
+ localizationPolicy on
+ version 6
+ name ReadGeo1
+ selected true
+ xpos 366
+ ypos -145
+}
+TransformGeo {
+ uniform_scale 0.12
+ name TransformGeo1
+ selected true
+ xpos 366
+ ypos -65
+}
+push $cut_paste_input
+Sphere {
+ rows 12
+ columns 12
+ radius 0.06
+ name Sphere1
+ selected true
+ xpos 217
+ ypos -65
+}
+TransformGeo {
+ translate {-0.71 -1.2 0}
+ name TransformGeo2
+ selected true
+ xpos 217
+ ypos 1
+}
+push 0
+ParticleEmitter {
+ inputs 3
+ emit_from faces
+ randomize_type "randomized direction"
+ rate {{curve x10 0 5 x23 5 x24 0}}
+ lifetime_variation 0.864
+ velocity 0.182
+ velocity_variation 0.756
+ rotation_velocity 360
+ rotation_velocity_variation 1
+ size 1
+ size_variation 1
+ mass 0.805
+ name ParticleEmitter4
+ selected true
+ xpos 366
+ ypos 1
+}
+ParticleCurve {
+ curves {r {}
+   g {}
+   b {}
+   a {curve l 1.000771523 1.004875541}
+   size {curve x0.7851350307 0.9866264462 s0 t-3.700000048 x0.9959666729 0.007462739944}
+   mass {}}
+ affect_rgb false
+ affect_alpha false
+ affect_size true
+ channels {a}
+ name ParticleCurve3
+ selected true
+ xpos 366
+ ypos 63
+}
+ParticleGravity {
+ to {0 -0.06 0}
+ name ParticleGravity4
+ selected true
+ xpos 366
+ ypos 131
+}
+ParticleWind {
+ to {-0.1550000012 0.3100000024 -0.200000003}
+ name ParticleWind1
+ selected true
+ xpos 366
+ ypos 195
+}
+ParticleDrag {
+ drag 0.404
+ name ParticleDrag4
+ selected true
+ xpos 366
+ ypos 266
+}
+push 0
+ScanlineRender {
+ inputs 3
+ conservative_shader_sampling false
+ samples 7.4
+ shutter 0.145
+ motion_vectors_type distance
+ name ScanlineRender1
+ selected true
+ xpos 366
+ ypos 371
+}
+Grade {
+ multiply {1 0.788805 0.766588 1}
+ multiply_panelDropped true
+ black_clamp false
+ name Grade2
+ label "\[value white]"
+ selected true
+ xpos 366
+ ypos 436
+}
