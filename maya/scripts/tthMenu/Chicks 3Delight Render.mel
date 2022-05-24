@@ -1,0 +1,338 @@
+//OutlinerWindow;
+//CreateCameraOnly;
+
+
+select -cl;
+
+global proc load_3delight_plug_in(){
+    catch(`loadPlugin "C:/Program Files/3Delight/maya/2016/plug-ins/3dfm_shave2016.mll"`);
+    catch(`loadPlugin "C:/Program Files/3Delight/maya/2016/plug-ins/3delight_for_maya2016.mll"`);
+}
+
+
+//cloud bubble(hide mash cloud)
+global proc hide_instancerObjects() {
+    string $instancerObjects[] = `ls -type instancer`;
+    for( $i in $instancerObjects) { 
+        setAttr ( $i + ".visibility") 0;
+    }
+}
+
+
+//Hide shaveHair for faster when render occ
+global proc hide_shaveObjects() {
+    string $shaveObjects[] = `ls -type shaveHair`;
+    for( $i in $shaveObjects) { 
+        setAttr ( $i + ".visibility") 0;
+    }
+}
+
+
+//For render occ
+global proc load_mentalray_plug_in(){
+    hide_shaveObjects;
+    hide_instancerObjects;
+    
+    catch(`loadPlugin "C:/Program Files/Autodesk/mentalrayForMaya2016/plug-ins/Mayatomr.mll"`); 
+
+    if( !`objExists chicks_surfaceShader`) {createNode surfaceShader -n "chicks_surfaceShader";}
+    
+    if( !`objExists chicks_mib_amb_occlusion`) {createNode mib_amb_occlusion -n "chicks_mib_amb_occlusion";}
+    setAttr "chicks_mib_amb_occlusion.S00" 64;
+    setAttr "chicks_mib_amb_occlusion.S03" 0.5;
+    
+    connectAttr -f "chicks_mib_amb_occlusion.S11" "chicks_surfaceShader.oc";
+}
+
+
+global proc set_3delight_as_renderglobal(){
+    setAttr ":defaultRenderGlobals.ren" -type "string" "_3delight";
+}
+
+
+//Remove all extra renderpass except chicks_renderpass
+global proc delete_other_3delight_renderpass_and_delightrenderglobals(){
+    string $sel[] =`ls "*?ender?ass*" "*?elight?ender?lobals*"`;
+    string $chicks_3delight[] = {"chicks_renderpass", "chicks_delightRenderGlobals" };
+    string $sel[] = stringArrayRemove($chicks_3delight, $sel);
+    delete $sel;//delete
+    clear $sel;
+}
+
+
+global proc create_a_3delight_renderpass(){
+    if( !`objExists chicks_renderpass`){
+        select -r `DL_createRenderPassNode` ;
+        rename "chicks_renderpass";
+        addAttr -s false -ci true -h true -sn "usedBy3dfm" -ln "usedBy3dfm" -at "message";
+    }
+}
+
+
+global proc create_a_3delight_delightRenderGlobals(){
+    if( !`objExists chicks_delightRenderGlobals`){
+        createNode delightRenderGlobals -n "chicks_delightRenderGlobals";
+            addAttr -s false -ci true -sn "renderPass" -ln "renderPass" -at "message";
+            addAttr -ci true -sn "monitorColorProfile" -ln "monitorColorProfile" -dt "string";
+            addAttr -ci true -sn "linearizeShaderColors" -ln "linearizeShaderColors" -min 0 -max 1 -at "bool";
+            addAttr -ci true -h true -sn "version" -ln "version" -dt "string";
+            addAttr -s false -ci true -h true -sn "attrChgScriptJobsAdded" -ln "attrChgScriptJobsAdded" -min 0 -max 1 -at "bool";
+            //setAttr ".monitorColorProfile" -type "string" "srgb";
+            //setAttr ".version" -type "string" "8.0.10";
+    }
+}
+
+global proc active_chicks_renderpass(){
+    unifiedRenderGlobalsWindow;
+    AE_setConnectedNodeFromMenu chicks_delightRenderGlobals.renderPass "DRG_GUIActiveRenderPassChanged" 
+"chicks_renderpass";
+}
+
+
+global proc set_chicks_renderpass_parameter_default(){
+    //active render pass
+    connectAttr -f "chicks_renderpass.usedBy3dfm" "chicks_delightRenderGlobals.renderPass";
+    
+    //set render camera
+    AE_setConnectedNodeFromMenu "chicks_renderpass.camera" "AE_DRP_update chicks_renderpass" "cameraShape1";
+    
+    setAttr "chicks_renderpass.startFrame" `playbackOptions -q -ast`;//3delight startFrame
+    setAttr "chicks_renderpass.endFrame" `playbackOptions -q -aet`;//3delight endFrame
+    
+    setAttr ":defaultRenderGlobals.an" yes; //global animation
+    setAttr "defaultRenderGlobals.startFrame" `playbackOptions -q -ast`;//global startFrame
+    setAttr "defaultRenderGlobals.endFrame" `playbackOptions -q -aet`;//global endFrame
+
+    //load 3delight image_layers
+    //AE_DRP_imageLayersFrameLayoutExpandCmd MayaWindow_DRP_ chicks_renderpass.displayFilenames;
+    
+    //set render file format
+    setAttr "chicks_renderpass.layerDefaultDisplayDriver" -type "string" "tiff"; //tiff file format
+    setAttr "chicks_renderpass.layerDefaultQuantizeOne" 255; //8-bit
+    setAttr "chicks_renderpass.layerDefaultQuantizeMax" 255; //8-bit
+    setAttr "chicks_renderpass.layerDefaultQuantizeDither" 0.5; //8-bit
+
+    //select REYES as render engine
+    setAttr "chicks_renderpass.renderingAlgorithm" 0;
+}
+
+
+global proc set_chicks_renderpass_parameter_RGBA_to_i_display(){
+    setAttr "chicks_renderpass.animation" 0;//set render range as single
+    
+    setAttr "chicks_renderpass.displayOutputVariables[0]" -type "string" "rgba";//rgba
+    setAttr "chicks_renderpass.layerFrameBufferOutput[0]" 1;//output to idisplace
+    setAttr "chicks_renderpass.layerFileOutput[0]" 0;//output file
+    setAttr "chicks_renderpass.layerJpegOutput[0]" 0;//output jpg
+
+    setAttr "chicks_renderpass.displayComputeAlphas[0]" 0;//compute alpha
+
+    delightRenderActiveRenderPassFromGUI;//open idisplayer and render
+}
+
+
+global proc set_chicks_renderpass_parameter_RGBA_to_computer(){
+    setAttr "chicks_renderpass.animation" 1;//set render animation
+
+    setAttr "chicks_renderpass.displayOutputVariables[0]" -type "string" "rgba";//rgba
+    setAttr "chicks_renderpass.layerFrameBufferOutput[0]" 0;//output to idisplace
+    setAttr "chicks_renderpass.layerFileOutput[0]" 1;//output file
+    setAttr "chicks_renderpass.layerJpegOutput[0]" 0;//output jpg
+    
+    setAttr "chicks_renderpass.displayComputeAlphas[0]" 0;//compute alpha
+}
+
+
+global proc set_chicks_renderpass_parameter_Occ_to_i_display(){
+    setAttr "chicks_renderpass.animation" 0;//set render range as single
+
+    setAttr "chicks_renderpass.displayOutputVariables[0]" -type "string" "color aov_occlusion";//occ
+    setAttr "chicks_renderpass.layerFrameBufferOutput[0]" 1;//output to idisplace
+    setAttr "chicks_renderpass.layerFileOutput[0]" 0;//output file
+    setAttr "chicks_renderpass.layerJpegOutput[0]" 0;//output jpg
+    
+    setAttr "chicks_renderpass.displayComputeAlphas[0]" 1;//compute alpha
+    
+    delightRenderActiveRenderPassFromGUI;//open idisplayer and render
+}
+
+
+global proc set_chicks_renderpass_parameter_Occ_to_computer(){
+     setAttr "chicks_renderpass.animation" 1;//set render animation
+
+    setAttr "chicks_renderpass.displayOutputVariables[0]" -type "string" "color aov_occlusion";//set occ
+    setAttr "chicks_renderpass.layerFrameBufferOutput[0]" 0;//output to idisplace
+    setAttr "chicks_renderpass.layerFileOutput[0]" 1;//output file
+    setAttr "chicks_renderpass.layerJpegOutput[0]" 0;//output jpg
+    
+    setAttr "chicks_renderpass.displayComputeAlphas[0]" 1;//compute alpha
+}
+
+
+/*
+//check attribute
+proc check_load_plun_in_start(){
+    global string $check_load_plun_in_result = "Hold On...";}
+proc check_load_plun_in_end(){
+    global string $check_load_plun_in_result = "OK!   OK!";}
+
+proc check_set_to_i_display_start(){
+    global string $check_set_to_i_display_result = "";}    
+proc check_set_to_i_display_end(){
+    global string $check_set_to_i_display_result = "OK!";}
+
+proc check_set_to_computer_end(){
+    global string $check_set_to_computer_result = "OK!";}
+proc check_set_to_computer_start(){
+    global string $check_set_to_computer_result = "";}
+*/
+
+
+//delay command and execute
+global proc load_3delight_and_set_chicks_renderpass(){
+    evalDeferred -lp load_3delight_plug_in;
+    evalDeferred -lp set_3delight_as_renderglobal;
+    evalDeferred -lp delete_other_3delight_renderpass_and_delightrenderglobals;
+    evalDeferred -lp create_a_3delight_renderpass;
+    evalDeferred -lp create_a_3delight_delightRenderGlobals;
+    evalDeferred -lp set_chicks_renderpass_parameter_default;
+    
+    delete shaveGlobals;
+    shaveGlobalsEditor;
+}
+
+
+//set maya project, the condition is "maya_project" folder
+//Need to optimize ???
+global proc set_project_path(){
+    string $path_split[];
+    string $path_split_combine[];
+    string $path_final;
+
+    string $path_name = `file -q -sn`;//scene name
+    tokenize $path_name "/" $path_split;//split scene name
+
+    for($i in $path_split){
+        string $path_split_scatter[] = stringToStringArray($i, "");
+        $path_split_combine = stringArrayCatenate($path_split_combine, $path_split_scatter);
+        if(`tolower $i` == "maya_project" || `tolower $i` == "maya_projects" || $i == "default") {break;}
+    }
+
+    string $path_final = stringArrayToString($path_split_combine,"/");
+    clear $path_split_combine;
+
+    //whether is network or local file, if network then add "//" to the front
+    if ( gmatch($path_name, "?:*") != 1){
+        $path_final = stringAddPrefix($path_final, "//");
+    }
+
+    setProject $path_final;
+}
+//set_project_path;
+
+
+global proc subdivision_geometry_3de(){
+    string $sel[] = `ls -shapes`;
+    for( $i in $sel) { 
+        int $have_3de_sub_attr = `attributeQuery -node $i -exists "_3delight_poly_as_subd"`;
+        if( $have_3de_sub_attr == 1) {setAttr ( $i + "._3delight_poly_as_subd") 1;}
+    }
+    clear $sel;
+}
+global proc dissubdivision_select_geometry_3de(){
+    string $sel[]=`ls -sl`;
+    string $selDescendent[]=`listRelatives -ad $sel`;
+    string $selShape[]=`ls -s $selDescendent`;
+    for ($i in $selShape){
+        int $have_attr = `attributeQuery -node $i -exists "_3delight_poly_as_subd"`;
+        if( $have_attr == 1) {setAttr( $i+"._3delight_poly_as_subd") 0;}
+    }
+}
+
+//disable casts or receive shadows (solve the slow problem of tantanyun rendering)
+global proc dis_shadows(){
+    string $sel[] =`ls "*tantanyun*:*SphereShape*"`;
+    for( $i in $sel) { 
+        int $have_casts_shadows_attr = `attributeQuery -node $i -exists "castsShadows"`;
+        int $have_receive_shadows_attr = `attributeQuery -node $i -exists "receiveShadows"`;
+        if( $have_casts_shadows_attr == 1) {setAttr ( $i + ".castsShadows") 0;}
+        if( $have_receive_shadows_attr == 1) {setAttr ( $i + ".receiveShadows") 0;}
+    }
+    clear $sel;
+}
+dis_shadows;
+
+
+setAttr "defaultColorMgtGlobals.cmEnabled" 0;//close color management
+setAttr "defaultRenderGlobals.animation" 1;//set frame range
+setAttr "defaultRenderGlobals.startFrame" `playbackOptions -q -ast`;
+setAttr "defaultRenderGlobals.endFrame" `playbackOptions -q -aet`;
+
+
+global proc submit_job_to_deadline(){
+    file -s;
+    SubmitJobToDeadline;
+}
+
+
+
+
+//GUI window
+{
+int $window_width=320;
+int $button_width=$window_width/2-4;
+
+string $chicks_window_name ="chicksRenderStr";
+if( `window -exists $chicks_window_name`) {
+    deleteUI -window $chicks_window_name;
+    windowPref -r $chicks_window_name;
+}
+string $chicks_window = `window -title "Chicks Render (3Delight)" -wh $window_width 370 -tlc 300 700 $chicks_window_name`;
+
+columnLayout -adj 1;
+    text -l "";
+    
+    rowLayout -adj 1 -nc 2;
+        button -l "Load 3Delight" -c "load_3delight_and_set_chicks_renderpass" -ann "加载3Delight插件";
+        button -l "Reset" -c "active_chicks_renderpass" -ann "默认3Delight重置" -w 70;
+    setParent ..;
+
+    text -l "";
+
+    frameLayout -l "RGBA" -cll 1 -cl 0 -bgc .15 .2 .25;
+        rowLayout -adj 1 -nc 2;
+            button -l "RGBA Test" -c "set_chicks_renderpass_parameter_RGBA_to_i_display" -ann "渲染一张彩图" -w $button_width;
+            button -l "RGBA Set Render" -c "set_chicks_renderpass_parameter_RGBA_to_computer" -ann "修改最终渲染设置" -w $button_width;
+        setParent ..;
+    setParent ..;
+
+    text -l "";
+    
+    frameLayout -l "Occlusion"  -cll 1 -cl 1 -bgc .15 .2 .25;
+        rowLayout -adj 1 -nc 2;
+            button -l "Load Occ" -c "load_mentalray_plug_in" -ann "加载occ插件" -bgc 0.1 0.6 0.4 -w $button_width;
+            button -l "Assign Occ Material" -c "hyperShade -a chicks_surfaceShader" -ann "添加occ材质到选择物体" -bgc 0.3 0.6 0.3 -w $button_width;
+        setParent ..;
+        
+        rowLayout -adj 1 -nc 2;
+            button -l "Occ Test" -c "set_chicks_renderpass_parameter_Occ_to_i_display" -ann "渲染一张occ" -w $button_width;
+            button -l "Occ Set Render" -c "set_chicks_renderpass_parameter_Occ_to_computer" -ann "修改最终occ渲染设置" -w $button_width;    
+        setParent ..;
+    setParent ..;
+    
+    text -l "";
+    
+    rowLayout -adj 1 -nc 2;
+        button -l "Remove Smooth" -c "dissubdivision_select_geometry_3de" -ann "选择物体去掉3Delight细分属性";
+        button -l "Smooth All" -c "subdivision_geometry_3de" -ann "全部物体添加3Delight细分属性" -w 200;
+    setParent ..;
+    
+    //text -l "";
+    button -l "保存 + SubmitToDeadline" -c "submit_job_to_deadline";
+
+setParent ..;
+showWindow $chicks_window;
+}
+
+/// (っ °Д °;)っ   (/"≡ _ ≡)/~┴┴   (￣#)3￣)☆
+////////////////////////////////////////////

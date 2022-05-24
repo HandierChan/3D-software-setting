@@ -1,0 +1,2 @@
+catchQuiet(python("from tthMenu import TTH;TTH.main()"));
+catchQuiet(python("import mSetProject;mSetProject.main()"));
