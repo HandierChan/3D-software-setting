@@ -22,7 +22,7 @@ def melFileMayaExecute(fullPath='z:/aa.mel'):
     path=path.replace("\\","/")
     mel.eval(r'source "%s"'%path)
 
-def createMenu_TTH():
+def createMenuTTH():
     menuObject='TTH'
     if cmds.menu(menuObject,exists=1,parent='MayaWindow'):
         cmds.deleteUI(cmds.menu(menuObject,edit=1,deleteAllItems=1))
@@ -55,21 +55,63 @@ def addMenuItem_mel(fileList_mel):
     cmds.menuItem(label='MEL',divider=True)
     for i in fileList_mel:
         iName=os.path.splitext(os.path.basename(i))[0]
-        iExt=os.path.splitext(os.path.basename(i))[1]
         cmds.menuItem(label=iName,c=Callback(melFileMayaExecute,i),image=iName+'.png')
 
 def addMenuItem_py(fileList_py):
     cmds.menuItem(label='Python',divider=True)
     for i in fileList_py:
         iName=os.path.splitext(os.path.basename(i))[0]
-        iExt=os.path.splitext(os.path.basename(i))[1]
         cmds.menuItem(label=iName,c=Callback(pyFileMayaExecute,i),image=iName+'.png')
 
+def openMaDirectory():
+    filePath=cmds.file(q=True,sn=True)
+    fileDir=os.path.dirname(filePath)
+    os.startfile(fileDir)
+def openFileDirectory():
+    '''
+    open select node directory:
+    maya file,texture node,redshift proxy and vdb,
+    '''
+    parmList=['fileTextureName','fileName']
+    parmListLen=len(parmList)
+    parmListCount=0
+
+    selectNodeList=cmds.ls(selection=True)
+    if selectNodeList==[]:
+        openMaDirectory()
+        import sys
+        sys.exit()
+
+    selectNode=selectNodeList[0]
+    for i in parmList:
+        try:
+            texturePath=cmds.getAttr(selectNode+'.'+i)
+            if texturePath:
+                textureDir=os.path.dirname(texturePath)
+                os.startfile(textureDir)
+                break
+        except:pass
+
+        parmListCount+=1
+        if parmListCount==parmListLen:
+            openMaDirectory()
+
+def openScriptDirectory():
+    tthPath=os.path.dirname(__file__)
+    cmds.menuItem(label='Open Script Directory',c=lambda x:os.startfile(tthPath))
+
 def main():
-    createMenu_TTH()
+    createMenuTTH()
+    
+    cmds.menuItem(label='Open File Directory',c=lambda x:openFileDirectory(),image='Open File Directory.png')
+
+    # script preset (mel and py)
     fileList=fileFilter(['.py','.mel'])
     melList,pyList=[],[]
     [melList.append(i) for i in fileList if os.path.splitext(i)[1]=='.mel']
     [pyList.append(i) for i in fileList if os.path.splitext(i)[1]=='.py']
     if melList: addMenuItem_mel(melList)
     if pyList: addMenuItem_py(pyList)
+
+    cmds.menuItem(divider=True)
+    openScriptDirectory()
