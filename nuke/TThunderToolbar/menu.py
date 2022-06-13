@@ -1,33 +1,39 @@
 import os,nuke
 
 # this Folder Path
-CurrentFolder = os.path.dirname(__file__)
-IconsFolder = '%s/icons' % CurrentFolder
-PresetsFolder = '%s/Presets' % CurrentFolder
+tthToolbarCurrentFolder = os.path.dirname(__file__)
+tthToolbarIconsFolder = '%s/icons' % tthToolbarCurrentFolder
+tthToolbarPresetsFolder = '%s/Presets' % tthToolbarCurrentFolder
 
 
 # Build TTH Toolbar
-tthunderToolbar = nuke.toolbar('Nodes').addMenu('TTH', icon='%s/Pipilu.png' % IconsFolder)
+tthunderToolbar = nuke.toolbar('Nodes').addMenu('TTH', icon='%s/Pipilu.png' % tthToolbarIconsFolder)
 
 
-# Reveal In Explorer
-def RevealInExplorer():
-    node = nuke.selectedNode()
-    if node.knob("file") is not None:
+# Open File Directory
+def openFileDirectory():
     #if node.Class()=="Read" or node.Class()=="Write":
-        fullpath = node['file'].value()
-        os.startfile(os.path.normpath(os.path.dirname(fullpath)))
-        # cmd = 'explorer "%s"' % path
-        # os.system(cmd)
-tthunderToolbar.addCommand('Reveal In Explorer', RevealInExplorer, icon='%s/FileExplorer.png' % IconsFolder)
+    if nuke.selectedNodes():
+        nodeFilePath=nuke.filename(nuke.selectedNode())
+        os.startfile(os.path.normpath(os.path.dirname(nodeFilePath)))
+    else:
+        nukeFilePath=nuke.root().knob('name').value()
+        os.startfile(os.path.normpath(os.path.dirname(nukeFilePath)))
+tthunderToolbar.addCommand('Open File Directory', openFileDirectory, '^b',icon='%s/OpenFileDirectory.png' % tthToolbarIconsFolder)
 tthunderToolbar.addSeparator()
 
 
 # Add Presets
-files = os.listdir(PresetsFolder)
+files = os.listdir(tthToolbarPresetsFolder)
 files.sort()
 for i in files:
-    PresetsFullPath = PresetsFolder + '/' + i 
+    PresetsFullPath = tthToolbarPresetsFolder + '/' + i 
     if os.path.isfile(PresetsFullPath):
         FileName = os.path.splitext(i)[0]
-        tthunderToolbar.addCommand(FileName, 'nuke.nodePaste(\"' + PresetsFullPath + '\")', icon='%s/%s.png'%(IconsFolder,FileName))
+        tthunderToolbar.addCommand(FileName, 'nuke.nodePaste(\"' + PresetsFullPath + '\")', icon='%s/%s.png'%(tthToolbarIconsFolder,FileName))
+
+
+# Open Preset Directory
+def openPresetDirectory():
+    os.startfile(os.path.normpath(tthToolbarPresetsFolder))
+tthunderToolbar.addCommand('Open Preset Directory', openPresetDirectory)
