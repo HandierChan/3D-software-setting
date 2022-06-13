@@ -1,5 +1,0 @@
-animCurveEditor -edit -displayInfinities true graphEditor1GraphEd;
-select -r `ls -typ animCurve`; //select all animCurve nodes
-selectKey `ls -typ animCurve`; //select all keys 
-setInfinity -pri cycle;
-setInfinity -poi cycle;
