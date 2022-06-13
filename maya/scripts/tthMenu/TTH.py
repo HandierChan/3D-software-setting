@@ -30,7 +30,7 @@ def createMenuTTH():
 
 def fileFilter(extension=['.py','.mel']):
     # tthPath="C:/Users/tthunder/Documents/maya/2018/scripts/tth"
-    tthPath=os.path.dirname(__file__)
+    tthPath=os.path.normpath(os.path.dirname(__file__))
     fileList = os.listdir(tthPath)
 
     # Remove list element: [__file__.py,__init__.py] and so on
@@ -65,7 +65,7 @@ def addMenuItem_py(fileList_py):
 
 def openMaDirectory():
     filePath=cmds.file(q=True,sn=True)
-    fileDir=os.path.dirname(filePath)
+    fileDir=os.path.normpath(os.path.dirname(filePath))
     os.startfile(fileDir)
 def openFileDirectory():
     '''
@@ -87,7 +87,7 @@ def openFileDirectory():
         try:
             texturePath=cmds.getAttr(selectNode+'.'+i)
             if texturePath:
-                textureDir=os.path.dirname(texturePath)
+                textureDir=os.path.normpath(os.path.dirname(texturePath))
                 os.startfile(textureDir)
                 break
         except:pass
@@ -97,7 +97,7 @@ def openFileDirectory():
             openMaDirectory()
 
 def openScriptDirectory():
-    tthPath=os.path.dirname(__file__)
+    tthPath=os.path.normpath(os.path.dirname(__file__))
     cmds.menuItem(label='Open Script Directory',c=lambda x:os.startfile(tthPath))
 
 def main():
